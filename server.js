@@ -164,7 +164,7 @@ app.post('/getmovie', (req, res) => {
 	http.get(
 		reqUrl,
 		responseFromAPI => {
-      let situacao = esponseFromAPI.body[0].data.situacao;
+      let situacao = responseFromAPI.body[0].data.situacao;
       console.log("# Response from API: "+situacao);
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
@@ -173,8 +173,8 @@ app.post('/getmovie', (req, res) => {
 			responseFromAPI.on('end', () => {
 				const movie =  JSON.parse(completeResponse)
 
-				let dataToSend = movieToSearch
-				dataToSend =  `Situacao = ${situacao}`
+				let dataToSend = movieToSearch;
+				dataToSend =  `Situacao`;
 
 				return res.json({
 					fulfillmentText: dataToSend,
