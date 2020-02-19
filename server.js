@@ -155,42 +155,50 @@ async function salva_nome(psid, nome){
   }
 }
 
+app.post('/getmovie', (req, res) => {
+	const movieToSearch ="The Dark Knight";
+  console.log(" movie:"+ movieToSearch);
+	const reqUrl = encodeURI(
+		`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${process.env.API_KEY}`
+	)
+	http.get(
+		reqUrl,
+		responseFromAPI => {
+			let completeResponse = ''
+			responseFromAPI.on('data', chunk => {
+				completeResponse += chunk
+			})
+			responseFromAPI.on('end', () => {
+				const movie =  JSON.parse(completeResponse)
+
+				let dataToSend = movieToSearch
+				dataToSend =  `${movie.Title} was released in the year ${movie.Year}. It is directed by ${
+					movie.Director
+				} and stars ${movie.Actors}.\n Here some glimpse of the plot: ${movie.Plot}.
+                }`
+
+				return res.json({
+					fulfillmentText: dataToSend,
+					source: 'getmovie'
+				})
+			})
+		},
+		error => {
+			return res.json({
+				fulfillmentText: 'Could not get results at this time',
+				source: 'getmovie'
+			})
+		}
+	)
+})
+
 app.post('/webhook/', async function (req, res) {
   messaging_events = req.body.entry[0].messaging
-  var psid = await get_psid(req);
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i]
     sender = event.sender.id
     if (event.message && event.message.text) {
       text = event.message.text
-
-      if (text == "Iniciar acompanhamento" || text == "cd") {
-        sendTextMessage(sender, "Primeiro deixa eu ver ser vc já tem um cadastro"); 
-        await sleep(300);
-        console.log("param " + psid);
-        let context = await getContext(psid);
-        console.log("# contexo ="+context);
-        if(context=="cadastro"){
-          sendTextMessage(sender, "Você já tem um cadastro \n "); 
-          sendTextMessage(sender, "Seu acompanhamento de processos está ativo");  
-        } else  {          
-          sendTextMessage(sender, "Você ainda não tem um cadastro, vamos fazer agora");
-          let cadastrado =  await cadastrar_usuario(psid);
-            sendTextMessage(sender, "Informe seu nome:");
-            let m_contexto = await muda_context_usuario(psid, 'cadastro.nome');
-            console.log("# contexto(nome):"+m_contexto);         
-        }
-      } else {
-        let context_nome = await getContext(psid);
-        if(context_nome == "cadastro.nome"){
-          let cad_nome = await salva_nome(psid, text);
-          if(cad_nome == "nome_salvo_com_sucesso"){
-            sendTextMessage(sender, "Ok, "+text+" já anotei seu nome");    
-            sendTextMessage(sender, "Qual seu número de da OAB? ");          
-          }
-        }
-        //sendTextMessage(sender, "Estamos em fase de testes: " + text.substring(0, 200))
-      }
     }
     if (event.postback) {
       text = JSON.stringify(event.postback)
