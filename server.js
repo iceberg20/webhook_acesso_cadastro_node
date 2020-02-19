@@ -159,9 +159,9 @@ app.post('/getmovie', (req, res) => {
 	const movieToSearch ="The Dark Knight";
   console.log(" movie:"+ movieToSearch);
 	const reqUrl = encodeURI(
-		`https://5e4c03a7a641ed0014b027b9.mockapi.io/api/situacao`
+		`http://5e4c03a7a641ed0014b027b9.mockapi.io/api/situacao`
 	)
-	https.get(
+	http.get(
 		reqUrl,
 		responseFromAPI => {
       console.log("# Response from API: "+responseFromAPI);
