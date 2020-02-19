@@ -159,11 +159,12 @@ app.post('/getmovie', (req, res) => {
 	const movieToSearch ="The Dark Knight";
   console.log(" movie:"+ movieToSearch);
 	const reqUrl = encodeURI(
-		`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${process.env.API_KEY}`
+		`https://5e4c03a7a641ed0014b027b9.mockapi.io/api/situacao`
 	)
 	http.get(
 		reqUrl,
 		responseFromAPI => {
+      console.log("# Response from API: "+responseFromAPI);
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
 				completeResponse += chunk
