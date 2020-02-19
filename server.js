@@ -164,14 +164,14 @@ app.post('/getmovie', (req, res) => {
 	http.get(
 		reqUrl,
 		responseFromAPI => {
-      let situacao = responseFromAPI.body[0].data.situacao;
-      console.log("# Response from API: "+situacao);
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
-				completeResponse += chunk
+        completeResponse += chunk
+        console.log("#chunk: "+chunk);
 			})
 			responseFromAPI.on('end', () => {
-				const movie =  JSON.parse(completeResponse)
+        const movie =  JSON.parse(completeResponse)
+        console.log("# complete response:"+movie);
 
 				let dataToSend = movieToSearch;
 				dataToSend =  `Situacao`;
