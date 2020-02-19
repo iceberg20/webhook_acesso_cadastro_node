@@ -161,7 +161,7 @@ app.post('/getmovie', (req, res) => {
 	const reqUrl = encodeURI(
 		`https://5e4c03a7a641ed0014b027b9.mockapi.io/api/situacao`
 	)
-	http.get(
+	https.get(
 		reqUrl,
 		responseFromAPI => {
       console.log("# Response from API: "+responseFromAPI);
