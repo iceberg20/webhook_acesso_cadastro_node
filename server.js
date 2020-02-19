@@ -164,7 +164,8 @@ app.post('/getmovie', (req, res) => {
 	http.get(
 		reqUrl,
 		responseFromAPI => {
-      console.log("# Response from API: "+responseFromAPI);
+      let situacao = esponseFromAPI.body[0].data.situacao;
+      console.log("# Response from API: "+situacao);
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
 				completeResponse += chunk
@@ -173,10 +174,7 @@ app.post('/getmovie', (req, res) => {
 				const movie =  JSON.parse(completeResponse)
 
 				let dataToSend = movieToSearch
-				dataToSend =  `${movie.Title} was released in the year ${movie.Year}. It is directed by ${
-					movie.Director
-				} and stars ${movie.Actors}.\n Here some glimpse of the plot: ${movie.Plot}.
-                }`
+				dataToSend =  `Situacao = ${situacao}`
 
 				return res.json({
 					fulfillmentText: dataToSend,
