@@ -171,7 +171,7 @@ async function convert_date_to_oracle(param){
   return param;
 }
 
-app.post('/situacao', (req, res) => {
+app.post('/situacao', async (req, res) => {
   const eleitor_nome = req.body.queryResult.parameters.nome;
   console.log("nome_param "+eleitor_nome);     
 
@@ -185,9 +185,9 @@ app.post('/situacao', (req, res) => {
   let nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
   let data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
   let url_normal = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+  console.log("#normal urlr:"+url_normal);
   
-  console.log("#encoded urlr:"+url_normal);
-	const reqUrl = encodeURI(
+  const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`
 	)
 	https.get(
