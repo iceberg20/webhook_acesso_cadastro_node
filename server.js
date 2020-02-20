@@ -174,7 +174,11 @@ app.post('/situacao', (req, res) => {
   const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
   console.log("eleitor_data_nasc "+eleitor_data_nasc); 
     
-  let nome_upper = convert_param_to_oracle(eleitor_nome);
+  let nome_converted = convert_param_to_oracle(eleitor_nome);
+  let nome_mae_converted = convert_param_to_oracle(eleitor_nome_mae);
+  let data_nasc_converted = "";
+
+
 
 	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
