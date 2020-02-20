@@ -157,10 +157,18 @@ async function salva_nome(psid, nome){
 }
 
 app.post('/situacao', (req, res) => {
-	const eleitor = req.body.queryResult.parameters.nome;
-  console.log(eleitor);
+	const eleitor =
+		req.req.body.queryResult.parameters.nome
+			? req.body.queryResult.parameters.nome
+      : 'nome nao informado'
 
-  const reqUrl = encodeURI(
+	const eleitor = req.body.queryResult.parameters.nome;
+  console.log("nome_param: "+eleitor);
+
+      
+
+  console.log(eleitor);
+	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
 	)
 	https.get(
