@@ -157,14 +157,17 @@ async function salva_nome(psid, nome){
 }
 
 app.post('/situacao', (req, res) => {
-	const eleitor_nome = req.body.queryResult.parameters.nome;
+  const eleitor_nome = req.body.queryResult.parameters.nome;
   console.log("nome_param "+eleitor_nome);     
 
   const eleitor_nome_mae = req.body.queryResult.parameters.nome_mae;
   console.log("nome_mae_param "+eleitor_nome_mae);  
   
   const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
-  console.log("eleitor_data_nasc "+eleitor_data_nasc);       
+  console.log("eleitor_data_nasc "+eleitor_data_nasc); 
+    
+  const nome_upper = eleitor_nome.toUpperCase();
+  console.log("# nome_upper:"+nome_upper);
 
 	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
