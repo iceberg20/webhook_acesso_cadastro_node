@@ -186,7 +186,7 @@ app.post('/situacao', (req, res) => {
   let data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
 
 	const reqUrl = encodeURI(
-		`https://botsociedade.tre-rn.jus.br/api/situacao`
+		`https://botsociedade.tre-rn.jus.br/api/situacao?nome=${eleitor_nome}&mae=${eleitor_nome_mae}&nascimento={eleitor_data_nasc}`
 	)
 	https.get(
 		reqUrl,
@@ -201,18 +201,18 @@ app.post('/situacao', (req, res) => {
         const c_response =  JSON.parse(completeResponse)
         console.log("# complete response:"+c_response);
 
-				let dataToSend = `Situacao` ;
+				let dataToSend = chunk;
 
 				return res.json({
 					fulfillmentText: dataToSend,
-					source: 'situacao'
+					source: 'api'
 				})
 			})
 		},
 		error => {
 			return res.json({
 				fulfillmentText: 'Could not get results at this time',
-				source: 'situacao'
+				source: 'api'
 			})
 		}
 	)
