@@ -188,7 +188,7 @@ app.post('/situacao', async (req, res) => {
   console.log("#normal urlr:"+url_normal);
   
   const reqUrl = await encodeURI(
-		`https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`
+    url_normal
 	)
 	https.get(
 		reqUrl,
