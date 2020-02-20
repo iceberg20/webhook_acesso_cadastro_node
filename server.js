@@ -155,7 +155,7 @@ async function salva_nome(psid, nome){
   }
 }
 
-app.post('/getmovie', (req, res) => {
+app.post('/situacao', (req, res) => {
 	const movieToSearch ="The Dark Knight";
   console.log(" movie:"+ movieToSearch);
 	const reqUrl = encodeURI(
