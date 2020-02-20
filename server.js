@@ -158,7 +158,7 @@ async function salva_nome(psid, nome){
 
 app.post('/situacao', (req, res) => {
 	const eleitor =
-		req.req.body.queryResult.parameters.nome
+		req.req.body.queryResult.parameters.nome && req.req.body
 			? req.body.queryResult.parameters.nome
       : 'nome nao informado'
 
