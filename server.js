@@ -158,7 +158,7 @@ async function salva_nome(psid, nome){
 
 async function convert_param_to_oracle(param){
   param = param.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  param = eleitor_nome.toUpperCase();
+  param = param.toUpperCase();
   param = param.split(' ').join('+');
   console.log("# nome_upper:"+param);
   return param;
