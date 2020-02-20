@@ -162,7 +162,6 @@ app.post('/situacao', (req, res) => {
 			? req.body.queryResult.parameters.nome
       : 'nome nao informado'
 
-	const eleitor = req.body.queryResult.parameters.nome;
   console.log("nome_param: "+eleitor);
 
       
