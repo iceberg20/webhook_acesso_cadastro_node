@@ -181,13 +181,19 @@ app.post('/situacao', async (req, res) => {
   const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
   console.log("eleitor_data_nasc "+eleitor_data_nasc); 
     
-  let nome_converted = convert_name_to_oracle(eleitor_nome);
-  let nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
-  let data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
-  let url_normal = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
-  console.log("#normal urlr:"+url_normal);
+  var nome_converted = convert_name_to_oracle(eleitor_nome);
+  var nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
+  var data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
+
+  async function generate_url(){
+    let gen = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+    console.log("#normal urlr:"+url_normal);
+    return gen; 
+  }
+    
+  let url_gen = await generate_url();
   
-  const reqUrl = await encodeURI(
+  const reqUrl = encodeURI(
     url_normal
 	)
 	https.get(
