@@ -7,6 +7,7 @@ var cors = require('cors');
 var request = require('request');
 var fs = require('fs');
 var http = require('http');
+const https = require('https');
 var str_con = process.env.STR_CON;
 
 // DB poll config
@@ -159,15 +160,17 @@ app.post('/situacao', (req, res) => {
 	const movieToSearch ="The Dark Knight";
   console.log(" movie:"+ movieToSearch);
 	const reqUrl = encodeURI(
-		`http://5e4c03a7a641ed0014b027b9.mockapi.io/api/situacao`
+		`https://botsociedade.tre-rn.jus.br/api/situacao`
 	)
-	http.get(
+	https.get(
 		reqUrl,
 		responseFromAPI => {
+
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
         completeResponse += chunk
         console.log("#chunk: "+chunk);
+
 			})
 			responseFromAPI.on('end', () => {
         const movie =  JSON.parse(completeResponse)
@@ -178,14 +181,14 @@ app.post('/situacao', (req, res) => {
 
 				return res.json({
 					fulfillmentText: dataToSend,
-					source: 'getmovie'
+					source: 'situacao'
 				})
 			})
 		},
 		error => {
 			return res.json({
 				fulfillmentText: 'Could not get results at this time',
-				source: 'getmovie'
+				source: 'situacao'
 			})
 		}
 	)
