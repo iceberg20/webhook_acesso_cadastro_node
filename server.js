@@ -184,14 +184,16 @@ app.post('/situacao', (req, res) => {
   let nome_converted = convert_name_to_oracle(eleitor_nome);
   let nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
   let data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
-
+  let url_normal = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+  
+  console.log("#encoded urlr:"+url_normal);
 	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`
 	)
 	https.get(
 		reqUrl,
 		responseFromAPI => {
-     console.log("#urlr:"+reqUrl);
+     console.log("#encoded urlr:"+reqUrl);
 
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
