@@ -194,7 +194,7 @@ app.post('/situacao', async (req, res) => {
   let url_gen = await generate_url();
   
   const reqUrl = encodeURI(
-    url_normal
+    url_gen
 	)
 	https.get(
 		reqUrl,
