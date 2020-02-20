@@ -157,14 +157,8 @@ async function salva_nome(psid, nome){
 }
 
 app.post('/situacao', (req, res) => {
-	const eleitor =
-		req.req.body.queryResult.parameters.nome && req.body
-			? req.body.queryResult.parameters.nome
-      : 'nome nao informado'
-
-  console.log("nome_param: "+eleitor);
-
-      
+	const eleitor = req.body.queryResult.parameters.nome;
+  console.log("nome_param "+eleitor);      
 
   console.log(eleitor);
 	const reqUrl = encodeURI(
