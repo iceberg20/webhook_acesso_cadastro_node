@@ -187,10 +187,10 @@ app.post('/situacao', async (req, res) => {
 
   async function generate_url(){
     let gen = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
-    console.log("#normal urlr:"+url_normal);
+    console.log("#normal urlr:"+gen);
     return gen; 
   }
-    
+
   let url_gen = await generate_url();
   
   const reqUrl = encodeURI(
