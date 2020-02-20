@@ -201,7 +201,7 @@ app.post('/situacao', (req, res) => {
         const c_response =  JSON.parse(completeResponse)
         console.log("# complete response:"+c_response);
 
-				let dataToSend = typeof(chunk);
+				let dataToSend = `Situacao`;
 
 				return res.json({
 					fulfillmentText: dataToSend,
