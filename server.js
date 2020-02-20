@@ -157,8 +157,16 @@ async function salva_nome(psid, nome){
 }
 
 app.post('/situacao', (req, res) => {
-	const eleitor = req.body.queryResult.parameters.nome;
-  console.log("nome_param "+eleitor);      
+	const eleitor_nome = req.body.queryResult.parameters.nome;
+  console.log("nome_param "+eleitor_nome);     
+
+  const eleitor_nome_mae = req.body.queryResult.parameters.nome-mae;
+  console.log("nome_mae_param "+eleitor_nome_mae);  
+  
+  const eleitor_data_nasc = req.body.queryResult.parameters.nome-mae;
+  console.log("eleitor_data_nasc "+eleitor_data_nasc);       
+
+
 
   console.log(eleitor);
 	const reqUrl = encodeURI(
