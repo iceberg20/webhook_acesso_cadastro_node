@@ -186,7 +186,7 @@ app.post('/situacao', (req, res) => {
   let data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
 
 	const reqUrl = encodeURI(
-		`https://botsociedade.tre-rn.jus.br/api/situacao?nome=${eleitor_nome}&mae=${eleitor_nome_mae}&nascimento={eleitor_data_nasc}`
+		`https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`
 	)
 	https.get(
 		reqUrl,
