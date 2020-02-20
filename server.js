@@ -191,7 +191,7 @@ app.post('/situacao', (req, res) => {
 	https.get(
 		reqUrl,
 		responseFromAPI => {
-     console.log(reqUrl);
+     console.log("#urlr:"+eqUrl);
 
 			let completeResponse = ''
 			responseFromAPI.on('data', chunk => {
