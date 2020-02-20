@@ -157,8 +157,11 @@ async function salva_nome(psid, nome){
 }
 
 app.post('/situacao', (req, res) => {
-	const movieToSearch ="The Dark Knight";
-  console.log(" movie:"+ movieToSearch);
+	const eleitor =
+		req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.nome
+			? req.body.result.parameters.nome
+      : ''
+  console.log(eleitor);
 	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
 	)
@@ -170,14 +173,12 @@ app.post('/situacao', (req, res) => {
 			responseFromAPI.on('data', chunk => {
         completeResponse += chunk
         console.log("#chunk: "+chunk);
-
-			})
+ 			})
 			responseFromAPI.on('end', () => {
-        const movie =  JSON.parse(completeResponse)
-        console.log("# complete response:"+movie);
+        const c_response =  JSON.parse(completeResponse)
+        console.log("# complete response:"+c_response);
 
-				let dataToSend = movieToSearch;
-				dataToSend =  `Situacao`;
+				let dataToSend = `Situacao` ;
 
 				return res.json({
 					fulfillmentText: dataToSend,
