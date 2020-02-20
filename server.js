@@ -166,8 +166,11 @@ app.post('/situacao', (req, res) => {
   const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
   console.log("eleitor_data_nasc "+eleitor_data_nasc); 
     
-  const nome_upper = eleitor_nome.toUpperCase();
+  let nome_upper = eleitor_nome.toUpperCase();
   console.log("# nome_upper:"+nome_upper);
+
+ nome_upper = nome_upper.split(' ').join('+');
+ console.log("# nome_upper:"+nome_upper);
 
 	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
