@@ -165,8 +165,8 @@ async function convert_name_to_oracle(param){
 }
 
 async function convert_date_to_oracle(param){
-  param = param.split('/').join('+');
-  param = param.split('').reverse().join('');  
+  param = param.substring(0, str.length-15);
+  param = param.split('-').join('');
   console.log("# date_oracle:"+param);
   return param;
 }
