@@ -166,9 +166,6 @@ app.post('/situacao', (req, res) => {
   const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
   console.log("eleitor_data_nasc "+eleitor_data_nasc);       
 
-
-
-  console.log(eleitor);
 	const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
 	)
