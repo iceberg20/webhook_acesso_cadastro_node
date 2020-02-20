@@ -163,7 +163,7 @@ app.post('/situacao', (req, res) => {
   const eleitor_nome_mae = req.body.queryResult.parameters.nome_mae;
   console.log("nome_mae_param "+eleitor_nome_mae);  
   
-  const eleitor_data_nasc = req.body.queryResult.parameters.data-nasc;
+  const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
   console.log("eleitor_data_nasc "+eleitor_data_nasc);       
 
 
