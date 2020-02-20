@@ -157,12 +157,10 @@ async function salva_nome(psid, nome){
 }
 
 app.post('/situacao', (req, res) => {
-	const eleitor =
-		req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.nome
-			? req.body.result.parameters.nome
-      : ''
+	const eleitor = req.body.queryResult.parameters.nome;
   console.log(eleitor);
-	const reqUrl = encodeURI(
+
+  const reqUrl = encodeURI(
 		`https://botsociedade.tre-rn.jus.br/api/situacao`
 	)
 	https.get(
