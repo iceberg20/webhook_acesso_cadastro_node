@@ -156,7 +156,7 @@ async function salva_nome(psid, nome){
   }
 }
 
-async function convert_name_to_oracle(param){
+function convert_name_to_oracle(param){
   param = param.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   param = param.toUpperCase();
   param = param.split(' ').join('+');
@@ -164,7 +164,7 @@ async function convert_name_to_oracle(param){
   return param;
 }
 
-async function convert_date_to_oracle(param){
+function convert_date_to_oracle(param){
   param = param.substring(0, param.length-15);
   param = param.split('-').join('');
   console.log("# date_oracle:"+param);
@@ -184,7 +184,7 @@ app.post('/situacao', async (req, res) => {
   const nome_converted = convert_name_to_oracle(eleitor_nome);
   const nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
   const data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
-  const url_normal = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+  const url_normal =  `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
   
   console.log("#normal urlr:"+url_normal);
   
