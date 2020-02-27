@@ -205,7 +205,7 @@ app.post('/situacao', async (req, res) => {
         const c_response =  JSON.parse(completeResponse)
         console.log("# complete response:"+c_response);
 
-				let dataToSend = `Situacao`;
+				let dataToSend = chunk.data.situacao;
 
 				return res.json({
 					fulfillmentText: dataToSend,
