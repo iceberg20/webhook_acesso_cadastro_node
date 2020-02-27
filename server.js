@@ -190,41 +190,52 @@ app.post('/situacao', async (req, res) => {
     console.log("#normal urlr:"+gen);
     return gen; 
   }
-
-  let url_gen = await generate_url();
   
-  const reqUrl = encodeURI(
-    url_gen
-	)
-	https.get(
-		reqUrl,
-		responseFromAPI => {
-     console.log("#encoded urlr:"+reqUrl);
+  //let url_gen = await generate_url();
+  
+  function f1(){
+    return new Promise( (resolver, reject)=>{
+      let gen = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+      resolver(gen)
+    }
+  )};
 
-			let completeResponse = ''
-			responseFromAPI.on('data', chunk => {
-        completeResponse += chunk
-        console.log("#chunk: "+chunk);
- 			})
-			responseFromAPI.on('end', () => {
-        const c_response =  JSON.parse(completeResponse)
-        console.log("# complete response:"+c_response);
+  function f2(reqUrl){
+    reqUrl = encodeURI(
+      reqUrl
+    )
+    https.get(
+      reqUrl,
+      responseFromAPI => {
+       console.log("#encoded urlr:"+reqUrl);
+  
+        let completeResponse = ''
+        responseFromAPI.on('data', chunk => {
+          completeResponse += chunk
+          console.log("#chunk: "+chunk);
+         })
+        responseFromAPI.on('end', () => {
+          const c_response =  JSON.parse(completeResponse)
+          console.log("# complete response:"+c_response);
+  
+          let dataToSend = `Situacao`;
+  
+          return res.json({
+            fulfillmentText: dataToSend,
+            source: 'api'
+          })
+        })
+      },
+      error => {
+        return res.json({
+          fulfillmentText: 'Could not get results at this time',
+          source: 'api'
+        })
+      }
+    )    
+  }
 
-				let dataToSend = `Situacao`;
-
-				return res.json({
-					fulfillmentText: dataToSend,
-					source: 'api'
-				})
-			})
-		},
-		error => {
-			return res.json({
-				fulfillmentText: 'Could not get results at this time',
-				source: 'api'
-			})
-		}
-	)
+  f1().then(resposen=>{ f2(response)});
 })
 
 app.post('/webhook/', async function (req, res) {
