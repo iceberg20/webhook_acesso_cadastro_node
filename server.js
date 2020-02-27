@@ -181,101 +181,44 @@ app.post('/situacao', async (req, res) => {
   const eleitor_data_nasc = req.body.queryResult.parameters.data_nasc;
   console.log("eleitor_data_nasc "+eleitor_data_nasc); 
     
-  var nome_converted = convert_name_to_oracle(eleitor_nome);
-  var nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
-  var data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
+  let nome_converted = convert_name_to_oracle(eleitor_nome);
+  let nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
+  let data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
+  let url_normal = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+  console.log("#normal urlr:"+url_normal);
+  
+  const reqUrl = await encodeURI(
+    url_normal
+	)
+	https.get(
+		reqUrl,
+		responseFromAPI => {
+     console.log("#encoded urlr:"+reqUrl);
 
-  app.post('/getmovie', (req, res) => {
-    const movieToSearch =
-      req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.movie
-        ? req.body.result.parameters.movie
-        : ''
-  
-    const reqUrl = encodeURI(
-      `http://www.omdbapi.com/?t=${movieToSearch}&apikey=${process.env.API_KEY}`
-    )
-    http.get(
-      reqUrl,
-      responseFromAPI => {
-        let completeResponse = ''
-        responseFromAPI.on('data', chunk => {
-          completeResponse += chunk
-        })
-        responseFromAPI.on('end', () => {
-          const movie = JSON.parse(completeResponse)
-  
-          let dataToSend = movieToSearch
-          dataToSend = `${movie.Title} was released in the year ${movie.Year}. It is directed by ${
-            movie.Director
-          } and stars ${movie.Actors}.\n Here some glimpse of the plot: ${movie.Plot}.
-                  }`
-  
-          return res.json({
-            fulfillmentText: dataToSend,
-            source: 'getmovie'
-          })
-        })
-      },
-      error => {
-        return res.json({
-          fulfillmentText: 'Could not get results at this time',
-          source: 'getmovie'
-        })
-      }
-    )
-  })
+			let completeResponse = ''
+			responseFromAPI.on('data', chunk => {
+        completeResponse += chunk
+        console.log("#chunk: "+chunk);
+ 			})
+			responseFromAPI.on('end', () => {
+        const c_response =  JSON.parse(completeResponse)
+        console.log("# complete response:"+c_response);
 
-  async function generate_url(){
-    let gen = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
-    console.log("#normal urlr:"+gen);
-    return gen; 
-  }
-  
-  //let url_gen = await generate_url();
-  
-  function f1(nome_converted, nome_mae_converted, data_nasc_converted ){
-    return new Promise( (resolve, reject)=>{
-      let gen = "https://botsociedade.tre-rn.jus.br/api/situacao?nome="+nome_converted+"&mae="+nome_mae_converted+"&nascimento="+data_nasc_converted;
-      resolve(gen)
-    }
-  )};
+				let dataToSend = `Situacao`;
 
-  function f2(reqUrl){
-    reqUrl = encodeURI(
-      reqUrl
-    )
-    https.get(
-      reqUrl,
-      responseFromAPI => {
-       console.log("#encoded urlr:"+reqUrl);
-  
-        let completeResponse = ''
-        responseFromAPI.on('data', chunk => {
-          completeResponse += chunk
-          console.log("#chunk: "+chunk);
-         })
-        responseFromAPI.on('end', () => {
-          const c_response =  JSON.parse(completeResponse)
-          console.log("# complete response:"+c_response);
-  
-          let dataToSend = `Situacao`;
-  
-          return res.json({
-            fulfillmentText: dataToSend,
-            source: 'api'
-          })
-        })
-      },
-      error => {
-        return res.json({
-          fulfillmentText: 'Could not get results at this time',
-          source: 'api'
-        })
-      }
-    )    
-  }
-
-  f1(nome_converted, nome_mae_converted, data_nasc_converted).then(response=>{ f2(response)});
+				return res.json({
+					fulfillmentText: dataToSend,
+					source: 'api'
+				})
+			})
+		},
+		error => {
+			return res.json({
+				fulfillmentText: 'Could not get results at this time',
+				source: 'api'
+			})
+		}
+	)
 })
 
 app.post('/webhook/', async function (req, res) {
