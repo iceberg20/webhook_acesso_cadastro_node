@@ -193,10 +193,10 @@ app.post('/situacao', async (req, res) => {
   
   //let url_gen = await generate_url();
   
-  function f1(){
-    return new Promise( (resolver, reject)=>{
-      let gen = `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
-      resolver(gen)
+  function f1(nome_converted, nome_mae_converted, data_nasc_converted ){
+    return new Promise( (resolve, reject)=>{
+      let gen = "https://botsociedade.tre-rn.jus.br/api/situacao?nome="+nome_converted+"&mae="+nome_mae_converted+"&nascimento="+data_nasc_converted;
+      resolve(gen)
     }
   )};
 
@@ -235,7 +235,7 @@ app.post('/situacao', async (req, res) => {
     )    
   }
 
-  f1().then(response=>{ f2(response)});
+  f1(nome_converted, nome_mae_converted, data_nasc_converted).then(response=>{ f2(response)});
 })
 
 app.post('/webhook/', async function (req, res) {
