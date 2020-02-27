@@ -235,7 +235,7 @@ app.post('/situacao', async (req, res) => {
     )    
   }
 
-  f1().then(resposen=>{ f2(response)});
+  f1().then(response=>{ f2(response)});
 })
 
 app.post('/webhook/', async function (req, res) {
