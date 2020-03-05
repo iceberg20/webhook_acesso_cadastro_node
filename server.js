@@ -184,8 +184,8 @@ app.post('/situacao', async (req, res) => {
   const nome_converted = convert_name_to_oracle(eleitor_nome);
   const nome_mae_converted = convert_name_to_oracle(eleitor_nome_mae);
   const data_nasc_converted = convert_date_to_oracle(eleitor_data_nasc);
-  //const url_normal =  `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
-  const url_normal =  `https://apps.tre-es.jus.br/chatbot/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+  const url_normal =  `https://botsociedade.tre-rn.jus.br/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
+  //const url_normal =  `https://apps.tre-es.jus.br/chatbot/api/situacao?nome=${nome_converted}&mae=${nome_mae_converted}&nascimento=${data_nasc_converted}`;
  
   console.log("#normal urlr:"+url_normal);
   
